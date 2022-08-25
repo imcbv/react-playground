@@ -21,6 +21,10 @@ const SignUpForm = () => {
         })
     }
 
+    const resetFormFields = () => {
+        setFormFields(defaultFormState);
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -30,8 +34,10 @@ const SignUpForm = () => {
         }
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            alert("User succesfully created")
+            resetFormFields();
             createUserDocumentFromAuth(user, { displayName })
-            setFormFields(defaultFormState);
+
         } catch (e) {
             alert(e.message)
         }
@@ -40,7 +46,7 @@ const SignUpForm = () => {
 
     return (
         <div>
-            <h1>Sign Up Form</h1>
+            <h1>Sign Up With Email Form</h1>
             <form onSubmit={handleSubmit}>
                 <label>Name</label>
                 <input type="text" required onChange={handleChange} name="displayName" value={displayName} />
