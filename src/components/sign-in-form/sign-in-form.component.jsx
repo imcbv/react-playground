@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+
+import { UserContext } from "../../context/user.context";
 
 const defaultFormState = {
     "email": '',
@@ -26,8 +28,9 @@ const SignInForm = () => {
         event.preventDefault();
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password)
+            const { user } = await signInAuthUserWithEmailAndPassword(email, password)
             alert("You are now logged in");
+
             resetFormFields();
         } catch (error) {
             alert(error.message)
