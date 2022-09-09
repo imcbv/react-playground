@@ -17,3 +17,6 @@ To add the Firebase package
 `npm init @eslint/config`
 To initialize eslint configuration
 Refer to [this tutorial](https://www.youtube.com/watch?v=ZXW6Jn6or1w) when adding Typescript
+
+`npm install prettier eslint-config-prettier eslint-plugin-prettier -D`
+To add Prettier

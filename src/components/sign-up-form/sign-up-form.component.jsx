@@ -3,67 +3,92 @@ import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebas
 import { getOrCreateUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 
 const defaultFormState = {
-    "displayName": '',
-    "email": '',
-    "password": '',
-    "confirmPassword": ''
-}
+  displayName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const SignUpForm = () => {
-    const [formFields, setFormFields] = useState(defaultFormState)
-    const { displayName, email, password, confirmPassword } = formFields;
+  const [formFields, setFormFields] = useState(defaultFormState);
+  const { displayName, email, password, confirmPassword } = formFields;
 
-    const handleChange = ({ target }) => {
-        const { name, value } = target;
-        setFormFields({
-            ...formFields,
-            [name]: value
-        })
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormFields({
+      ...formFields,
+      [name]: value,
+    });
+  };
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormState);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passowrds don't match");
+      return;
     }
-
-    const resetFormFields = () => {
-        setFormFields(defaultFormState);
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      alert("User succesfully created");
+      resetFormFields();
+      getOrCreateUserDocumentFromAuth(user, { displayName });
+    } catch (e) {
+      alert(e.message);
     }
+  };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  return (
+    <div>
+      <h1>Sign Up With Email Form</h1>
+      <form onSubmit={handleSubmit}>
+        <label>Name</label>
+        <input
+          type="text"
+          required
+          onChange={handleChange}
+          name="displayName"
+          value={displayName}
+        />
 
-        if (password !== confirmPassword) {
-            alert("Passowrds don't match")
-            return;
-        }
-        try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
-            alert("User succesfully created")
-            resetFormFields();
-            getOrCreateUserDocumentFromAuth(user, { displayName })
+        <label>Email</label>
+        <input
+          type="email"
+          required
+          onChange={handleChange}
+          name="email"
+          value={email}
+        />
 
-        } catch (e) {
-            alert(e.message)
-        }
+        <label>Password</label>
+        <input
+          type="password"
+          required
+          onChange={handleChange}
+          name="password"
+          value={password}
+        />
 
-    }
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          required
+          onChange={handleChange}
+          name="confirmPassword"
+          value={confirmPassword}
+        />
 
-    return (
-        <div>
-            <h1>Sign Up With Email Form</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Name</label>
-                <input type="text" required onChange={handleChange} name="displayName" value={displayName} />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  );
+};
 
-                <label>Email</label>
-                <input type="email" required onChange={handleChange} name="email" value={email} />
-
-                <label>Password</label>
-                <input type="password" required onChange={handleChange} name="password" value={password} />
-
-                <label>Confirm Password</label>
-                <input type="password" required onChange={handleChange} name="confirmPassword" value={confirmPassword} />
-
-                <button type="submit">Sign Up</button>
-            </form>
-        </div>
-    )
-}
-
-export default SignUpForm
+export default SignUpForm;
