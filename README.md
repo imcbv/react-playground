@@ -1,6 +1,7 @@
 # React Playground
 
-## Commands to run
+## History of ran commands
+
 `npx create-react-app .`
 To create the React app in the current folder
 
@@ -12,3 +13,7 @@ Add the React Router package. I used `npm install react-router-dom@6` to make su
 
 `npm install firebase`
 To add the Firebase package
+
+`npm init @eslint/config`
+To initialize eslint configuration
+Refer to [this tutorial](https://www.youtube.com/watch?v=ZXW6Jn6or1w) when adding Typescript
