@@ -1,14 +1,12 @@
-import { useState, useContext } from "react";
+import React, { useState } from "react";
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
-
-import { UserContext } from "../../context/user.context";
 
 const defaultFormState = {
   email: "",
   password: "",
 };
 
-const SignInForm = () => {
+function SignInForm() {
   const [formFields, setFormFields] = useState(defaultFormState);
   const { displayName, email, password, confirmPassword } = formFields;
 
@@ -66,6 +64,6 @@ const SignInForm = () => {
       </form>
     </div>
   );
-};
+}
 
 export default SignInForm;
