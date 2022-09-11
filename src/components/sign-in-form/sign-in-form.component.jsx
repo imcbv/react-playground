@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
 const defaultFormState = {
@@ -45,10 +45,12 @@ function SignInForm() {
           Email
           <input id="email" type="email" required onChange={handleChange} name="email" value={email} />
         </label>
+
         <label htmlFor="password">
           Password
           <input id="password" type="password" required onChange={handleChange} name="password" value={password} />
         </label>
+
         <button type="submit">Sign In</button>
       </form>
     </div>
