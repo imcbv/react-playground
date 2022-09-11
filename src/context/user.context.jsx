@@ -1,18 +1,16 @@
-import { createContext, useEffect, useState } from "react";
-import {
-  onAuthStateChangedListener,
-  signOutUser,
-  getOrCreateUserDocumentFromAuth,
-} from "../utils/firebase/firebase.utils";
+import PropTypes from 'prop-types';
+
+import { createContext, useEffect, useState, useMemo } from 'react';
+import { onAuthStateChangedListener, getOrCreateUserDocumentFromAuth } from '../utils/firebase/firebase.utils';
 
 export const UserContext = createContext({
   currentUser: null,
-  setCurrentUser: () => null,
+  setCurrentUser: () => null
 });
 
-export const UserProvider = ({ children }) => {
+export function UserProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const value = { currentUser, setCurrentUser };
+  const value = useMemo(() => ({ currentUser, setCurrentUser }), [currentUser, setCurrentUser]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener(async (user) => {
@@ -24,4 +22,8 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+}
+
+UserProvider.propTypes = {
+  children: PropTypes.node.isRequired
 };

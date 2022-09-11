@@ -1,9 +1,9 @@
-const Home = () => {
+function Home() {
   return (
     <div>
       <code>Hello World</code>
     </div>
   );
-};
+}
 
 export default Home;

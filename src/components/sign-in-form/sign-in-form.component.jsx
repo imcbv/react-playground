@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import React, { useState } from 'react';
+import { signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
 const defaultFormState = {
-  email: "",
-  password: "",
+  email: '',
+  password: ''
 };
 
 function SignInForm() {
   const [formFields, setFormFields] = useState(defaultFormState);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const { email, password } = formFields;
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setFormFields({
       ...formFields,
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -26,14 +26,13 @@ function SignInForm() {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      alert("You are now logged in");
+      await signInAuthUserWithEmailAndPassword(email, password);
+      // eslint-disable-next-line
+      alert('You are now logged in');
 
       resetFormFields();
     } catch (error) {
+      // eslint-disable-next-line
       alert(error.message);
     }
   };
@@ -42,24 +41,14 @@ function SignInForm() {
     <div>
       <h1>Sign In With Email Form</h1>
       <form onSubmit={handleSubmit}>
-        <label>Email</label>
-        <input
-          type="email"
-          required
-          onChange={handleChange}
-          name="email"
-          value={email}
-        />
-
-        <label>Password</label>
-        <input
-          type="password"
-          required
-          onChange={handleChange}
-          name="password"
-          value={password}
-        />
-
+        <label>
+          Email
+          <input type="email" required onChange={handleChange} name="email" value={email} />
+        </label>
+        <label>
+          Password
+          <input type="password" required onChange={handleChange} name="password" value={password} />
+        </label>
         <button type="submit">Sign In</button>
       </form>
     </div>
