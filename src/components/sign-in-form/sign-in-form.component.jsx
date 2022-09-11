@@ -41,13 +41,13 @@ function SignInForm() {
     <div>
       <h1>Sign In With Email Form</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label htmlFor="email">
           Email
-          <input type="email" required onChange={handleChange} name="email" value={email} />
+          <input id="email" type="email" required onChange={handleChange} name="email" value={email} />
         </label>
-        <label>
+        <label htmlFor="password">
           Password
-          <input type="password" required onChange={handleChange} name="password" value={password} />
+          <input id="password" type="password" required onChange={handleChange} name="password" value={password} />
         </label>
         <button type="submit">Sign In</button>
       </form>
